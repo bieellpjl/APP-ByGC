@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useFinance } from './hooks/useFinance'
+import { useTheme } from './hooks/useTheme'
 import Header from './components/Header'
 import BalanceCard from './components/BalanceCard'
 import CategoryChart from './components/CategoryChart'
@@ -17,6 +18,7 @@ import './App.css'
 
 export default function App() {
   const finance = useFinance()
+  const { isDark, toggleTheme } = useTheme()
   const [modalOpen, setModalOpen] = useState(false)
   const [editingTx, setEditingTx] = useState(null)
   const [goalModalOpen, setGoalModalOpen] = useState(false)
@@ -93,7 +95,7 @@ export default function App() {
     <div className="app">
       <div className="app__bg" aria-hidden="true" />
 
-      <Header onAddClick={openAdd} />
+      <Header onAddClick={openAdd} isDark={isDark} onThemeToggle={toggleTheme} />
 
       <nav className="tabs">
         {[

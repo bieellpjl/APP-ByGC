@@ -1,4 +1,4 @@
-export default function Header({ onAddClick }) {
+export default function Header({ onAddClick, isDark, onThemeToggle }) {
   return (
     <header className="header">
       <div className="header__brand">
@@ -8,10 +8,20 @@ export default function Header({ onAddClick }) {
           <p className="header__subtitle">Controle financeiro inteligente</p>
         </div>
       </div>
-      <button className="btn btn--primary" onClick={onAddClick}>
-        <span className="btn__icon">+</span>
-        Nova transação
-      </button>
+      <div className="header__actions">
+        <button
+          className="btn btn--ghost theme-toggle"
+          onClick={onThemeToggle}
+          aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
+          title={isDark ? 'Modo claro' : 'Modo escuro'}
+        >
+          <span className="theme-toggle__icon">{isDark ? '☀️' : '🌙'}</span>
+        </button>
+        <button className="btn btn--primary" onClick={onAddClick}>
+          <span className="btn__icon">+</span>
+          Nova transação
+        </button>
+      </div>
     </header>
   )
 }
