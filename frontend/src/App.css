@@ -91,6 +91,21 @@
   border-color: rgba(255, 255, 255, 0.15);
 }
 
+.btn--sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+
+.btn--danger {
+  color: var(--expense);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn--danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--expense);
+}
+
 .btn__icon {
   font-size: 1.2rem;
   line-height: 1;
@@ -238,6 +253,14 @@
   .overview-grid {
     grid-template-columns: 1fr;
   }
+
+  .overview-grid--insights {
+    grid-template-columns: 1fr;
+  }
+
+  .goal-card__edit {
+    opacity: 1;
+  }
 }
 
 /* Charts */
@@ -343,6 +366,260 @@
 
 .insight-bar__icon {
   font-size: 1.4rem;
+}
+
+/* Period Filter */
+.period-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  flex-wrap: wrap;
+}
+
+.period-filter__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.period-filter__icon {
+  font-size: 1.1rem;
+}
+
+.period-filter__input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.period-filter__input:focus {
+  border-color: rgba(16, 185, 129, 0.4);
+  outline: none;
+}
+
+.period-filter__hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+/* Savings Goals */
+.overview-section {
+  margin-bottom: 16px;
+}
+
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.goal-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.goal-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.goal-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.goal-card__icon {
+  font-size: 1.2rem;
+}
+
+.goal-card__label {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.goal-card__edit {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.goal-card:hover .goal-card__edit {
+  opacity: 1;
+}
+
+.goal-card__amounts {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.goal-card__current {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.goal-card__target {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.goal-card__bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.goal-card__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), #059669);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  min-width: 2px;
+}
+
+.goal-card__pct {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.goals-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 20px;
+  color: var(--text-muted);
+}
+
+.goals-empty span {
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+/* Goal Form */
+.goal-form__icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.goal-form__icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+
+.goal-form__icon-btn:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.goal-form__icon-btn--active {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Insights Panel */
+.overview-grid--insights {
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.insights-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.insight-item__icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.insight-item--warning {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: var(--text-muted);
+}
+
+.insight-item--success {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: var(--text-muted);
+}
+
+.insight-item--danger {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--text-muted);
+}
+
+.insight-item--info {
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: var(--text-muted);
+}
+
+/* Panel link */
+.panel__link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary);
+  transition: opacity 0.15s ease;
+}
+
+.panel__link:hover {
+  opacity: 0.8;
+}
+
+/* Compact transaction list */
+.tx-list--compact {
+  gap: 2px;
+}
+
+.tx-item--compact {
+  padding: 10px 8px;
+}
+
+.tx-empty--compact {
+  padding: 24px 20px;
 }
 
 /* Toolbar */

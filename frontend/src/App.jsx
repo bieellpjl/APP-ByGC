@@ -6,14 +6,21 @@ import CategoryChart from './components/CategoryChart'
 import MonthlyChart from './components/MonthlyChart'
 import TransactionList from './components/TransactionList'
 import TransactionForm from './components/TransactionForm'
+import PeriodFilter from './components/PeriodFilter'
+import SavingsGoals from './components/SavingsGoals'
+import SavingsGoalForm from './components/SavingsGoalForm'
+import RecentTransactions from './components/RecentTransactions'
+import InsightsPanel from './components/InsightsPanel'
 import Modal from './components/Modal'
-import { formatCurrency } from './utils/format'
+import { formatCurrency, formatPeriodLabel } from './utils/format'
 import './App.css'
 
 export default function App() {
   const finance = useFinance()
   const [modalOpen, setModalOpen] = useState(false)
   const [editingTx, setEditingTx] = useState(null)
+  const [goalModalOpen, setGoalModalOpen] = useState(false)
+  const [editingGoal, setEditingGoal] = useState(null)
   const [activeTab, setActiveTab] = useState('overview')
 
   const openAdd = () => {
@@ -31,6 +38,21 @@ export default function App() {
     setEditingTx(null)
   }
 
+  const openAddGoal = () => {
+    setEditingGoal(null)
+    setGoalModalOpen(true)
+  }
+
+  const openEditGoal = (goal) => {
+    setEditingGoal(goal)
+    setGoalModalOpen(true)
+  }
+
+  const closeGoalModal = () => {
+    setGoalModalOpen(false)
+    setEditingGoal(null)
+  }
+
   const handleSubmit = (data) => {
     if (editingTx) {
       finance.updateTransaction(editingTx.id, data)
@@ -38,6 +60,22 @@ export default function App() {
       finance.addTransaction(data)
     }
     closeModal()
+  }
+
+  const handleGoalSubmit = (data) => {
+    if (editingGoal) {
+      finance.updateSavingsGoal(editingGoal.id, data)
+    } else {
+      finance.addSavingsGoal(data)
+    }
+    closeGoalModal()
+  }
+
+  const handleGoalDelete = () => {
+    if (window.confirm('Deseja excluir esta meta?')) {
+      finance.deleteSavingsGoal(editingGoal.id)
+      closeGoalModal()
+    }
   }
 
   const handleDelete = (id) => {
@@ -76,9 +114,11 @@ export default function App() {
       <main className="main">
         {activeTab === 'overview' && (
           <>
+            <PeriodFilter period={finance.period} onChange={finance.setPeriod} />
+
             <section className="cards-grid">
               <BalanceCard
-                label="Saldo Total"
+                label="Saldo do Período"
                 value={finance.stats.balance}
                 variant="balance"
                 icon="💎"
@@ -97,6 +137,29 @@ export default function App() {
                 icon="📉"
               />
             </section>
+
+            <div className="overview-grid overview-grid--insights">
+              <div className="panel">
+                <div className="panel__header">
+                  <h3>Alertas & Insights</h3>
+                  <span className="panel__badge">{formatPeriodLabel(finance.period)}</span>
+                </div>
+                <InsightsPanel insights={finance.insights} />
+              </div>
+
+              <RecentTransactions
+                transactions={finance.recentTransactions}
+                onViewAll={() => setActiveTab('transactions')}
+              />
+            </div>
+
+            <div className="overview-section">
+              <SavingsGoals
+                goals={finance.savingsGoals}
+                onAddClick={openAddGoal}
+                onEditClick={openEditGoal}
+              />
+            </div>
 
             <div className="overview-grid">
               <div className="panel">
@@ -121,7 +184,8 @@ export default function App() {
             <div className="insight-bar">
               <span className="insight-bar__icon">💡</span>
               <p>
-                Taxa de economia: <strong>{savingsRate}%</strong> das receitas —
+                Taxa de economia em {formatPeriodLabel(finance.period)}:{' '}
+                <strong>{savingsRate}%</strong> das receitas —
                 você {finance.stats.balance >= 0 ? 'economizou' : 'gastou além de'}{' '}
                 <strong>{formatCurrency(Math.abs(finance.stats.balance))}</strong>
               </p>
@@ -195,6 +259,20 @@ export default function App() {
           initial={editingTx}
           onSubmit={handleSubmit}
           onCancel={closeModal}
+        />
+      </Modal>
+
+      <Modal
+        open={goalModalOpen}
+        onClose={closeGoalModal}
+        title={editingGoal ? 'Editar Meta' : 'Nova Meta de Economia'}
+      >
+        <SavingsGoalForm
+          key={editingGoal?.id || 'new-goal'}
+          initial={editingGoal}
+          onSubmit={handleGoalSubmit}
+          onCancel={closeGoalModal}
+          onDelete={editingGoal ? handleGoalDelete : null}
         />
       </Modal>
     </div>
