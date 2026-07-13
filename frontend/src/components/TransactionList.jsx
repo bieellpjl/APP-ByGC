@@ -1,4 +1,4 @@
-import { getCategoryById } from '../data/categories'
+import { getCategoryById } from "../hooks/categories";
 import { formatCurrency, formatShortDate } from '../utils/format'
 
 export default function TransactionList({ transactions, onEdit, onDelete }) {

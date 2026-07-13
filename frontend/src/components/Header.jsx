@@ -2,7 +2,7 @@ export default function Header({ onAddClick, isDark, onThemeToggle }) {
   return (
     <header className="header">
       <div className="header__brand">
-        <div className="header__logo">B</div>
+        <img src="/dinheiro.png" alt="Logo ByGC" className="header__logo-img" />
         <div>
           <h1 className="header__title">ByGC</h1>
           <p className="header__subtitle">Controle financeiro inteligente</p>

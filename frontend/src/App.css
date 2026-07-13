@@ -32,18 +32,19 @@
   gap: 14px;
 }
 
-.header__logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--primary), #059669);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: #fff;
-  box-shadow: 0 4px 20px var(--primary-glow);
+.header__logo-img {
+  width: 115px;
+  height: 115px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
+}
+
+.header__logo-img:hover {
+  transform: scale(1.15);
+  filter: brightness(1.15);
+
 }
 
 .header__title {

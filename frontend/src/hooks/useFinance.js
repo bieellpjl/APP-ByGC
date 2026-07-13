@@ -6,7 +6,7 @@ import {
   saveSavingsGoals,
 } from '../utils/storage'
 import { generateId, getCurrentPeriod, getPreviousPeriod } from '../utils/format'
-import { getCategoryById } from '../data/categories'
+import { getCategoryById } from "../hooks/categories";
 
 const filterByPeriod = (transactions, period) =>
   transactions.filter((t) => t.date.startsWith(period))

@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { CATEGORIES } from '../data/categories'
-
+import { CATEGORIES } from '../hooks/categories'
 const emptyForm = {
   type: 'expense',
   category: 'food',
